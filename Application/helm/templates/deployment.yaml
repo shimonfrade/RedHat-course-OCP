@@ -15,10 +15,19 @@ spec:
 # Set your lab user name
         app: {{ .Chart.Name }}
     spec:
+      volumes:
+        - name: index-html
+          configMap:
+            name: '{{ .Chart.Name }}-html'
+            defaultMode: 420
       containers:
         - resources: {}
           terminationMessagePath: /dev/termination-log
           name: {{ .Chart.Name }}
+          volumeMounts:
+          - name: index-html
+            mountPath: /tmp/html # this will mount the html.index file to it application location
+          
           ports:
             - containerPort: {{ .Values.containers.containerPort }}
               protocol: TCP
