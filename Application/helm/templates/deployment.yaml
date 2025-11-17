@@ -33,24 +33,3 @@ spec:
       maxUnavailable: 25%
       maxSurge: 25%
   revisionHistoryLimit: 10
-
-
-  ...  #this will Create Volume From our ConfigMap
-spec:
-...  
-  template:
-  ...     
-    spec:
-      volumes:
-        - name: index-html
-          configMap:
-            name: '{{ .Chart.Name }}-html'
-            defaultMode: 420
-...  # This will mount our File to the Pod File system
-      containers:
-      ...
-          volumeMounts:
-          - name: index-html
-            mountPath: /tmp/html # this will mount the html.index file to it application location
-      ...
-...
